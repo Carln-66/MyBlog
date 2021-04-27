@@ -67,4 +67,10 @@ public class CategoryController {
         categoryService.removeById(id);
         return Result.ok();
     }
+
+    @ApiOperation("获取所有正常状态的分类接口")
+    @GetMapping("/list")    //localhost:8001/article/category/list
+    public Result list() {
+        return categoryService.findAllNormal();
+    }
 }

@@ -18,4 +18,9 @@ public interface ICategoryService extends IService<Category> {
      * @return 返回状态信息
      */
     Result queryPage(CategoryREQ req);
+
+    /**
+     * 查询正常状态的分类
+     */
+    Result findAllNormal();
 }

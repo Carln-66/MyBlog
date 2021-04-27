@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: Carl
@@ -41,6 +42,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         //第一个参数是Page分页对象，第二个参数是查询条件
         IPage<Category> categoryIPage = baseMapper.selectPage(req.getPage(), wrapper);
         return Result.ok(categoryIPage);
+    }
+
+    @Override
+    public Result findAllNormal() {
+        QueryWrapper<Category> wrapper = new QueryWrapper<>();
+        wrapper.eq("status", 1);    //1:正常，0:停用
+        List<Category> categories = baseMapper.selectList(wrapper);
+        return Result.ok(categories);
     }
 
     @Override
