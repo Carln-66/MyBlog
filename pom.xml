@@ -10,6 +10,8 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>blog-util</module>
+        <module>blog-api</module>
+        <module>blog-article</module>
     </modules>
 
     <parent>
