@@ -1,5 +1,7 @@
 swagger:
-  description: MyBlog博客系统
+  title: MyBlog博客系统接口文档
+  description: Carl的Blog
+  exclude-path: /error    # 忽略文档界面中的error选项卡
 
 server:
   port: 8001
