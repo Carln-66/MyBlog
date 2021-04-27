@@ -11,6 +11,8 @@ import com.carl.blog.util.base.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @Auther: Carl
  * @Date: 2021/04/27/11:36
@@ -39,5 +41,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         //第一个参数是Page分页对象，第二个参数是查询条件
         IPage<Category> categoryIPage = baseMapper.selectPage(req.getPage(), wrapper);
         return Result.ok(categoryIPage);
+    }
+
+    @Override
+    public boolean updateById(Category category) {
+        //设置更新时间
+        category.setUpdateDate(new Date());
+        return super.updateById(category);
     }
 }
