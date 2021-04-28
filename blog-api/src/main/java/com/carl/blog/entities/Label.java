@@ -1,6 +1,7 @@
 package com.carl.blog.entities;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -40,5 +41,9 @@ public class Label implements Serializable {
 
     @ApiModelProperty(value = "更新时间")
     private Date updateDate;
+
+    @ApiModelProperty(value = "分类名称")
+    @TableField(exist = false)  //表示该字段不是label表中的字段
+    private String categoryName;
 
 }

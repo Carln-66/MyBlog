@@ -1,6 +1,7 @@
 package com.carl.blog.entities;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -9,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: Carl
@@ -64,5 +66,10 @@ public class Category implements Serializable {
      */
     @ApiModelProperty(value = "更新时间")
     private Date updateDate;
+
+    //创建集合用于保存同一分类下的所有标签，在com/carl/blog/article/mapper/xml/CategoryMapper.xml用到
+    @ApiModelProperty(value = "分类下的标签集合")
+    @TableField(exist = false)
+    private List<Label> labelList;
 
 }

@@ -4,4 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.carl.blog.article.mapper.CategoryMapper">
 
+    <!--封装分类以及分类中的标签信息-->
+    <resultMap id="categoryLabelMap" type="Category">
+        <!--映射主键-->
+        <id column="id" property="id" />
+        <!--其他字段与属性一一映射-->
+        <result column="name" property="name" />
+        <!--对于该分类下的需要封装到集合中的标签而言需要使用如下方式进行声明
+            property: 在实体类中定义的List属性
+            javaType: 集合的类型，小写即可
+            ofType: 集合中定义的泛型-->
+        <collection property="labelList" javaType="list" ofType="Label" >
+            <id column="label_id" property="id" />
+            <id column="label_name" property="name" />
+        </collection>
+    </resultMap>
+
+    <!--查询正常状态的分类以及分类下的所有标签-->
+    <select id="findCategoryAndLabel" resultMap="categoryLabelMap">
+        SELECT c.id, c.name, l.id label_id, l.name label_name
+        FROM category c
+                 LEFT JOIN label l
+                           ON c.id = l.category_id
+        WHERE c.status = 1
+        ORDER BY c.sort
+    </select>
 </mapper>

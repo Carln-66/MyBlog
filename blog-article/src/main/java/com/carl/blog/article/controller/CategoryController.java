@@ -73,4 +73,10 @@ public class CategoryController {
     public Result list() {
         return categoryService.findAllNormal();
     }
+
+    @ApiOperation("查询正常状态的分类及分类下的所有标签")
+    @GetMapping("/label/list")  //请求地址： localhost:8001/article/category/label/list
+    public Result findCategoryAndLabel() {
+        return categoryService.findCategoryAndLabel();
+    }
 }

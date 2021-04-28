@@ -53,6 +53,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
+    public Result findCategoryAndLabel() {
+        List<Category> categoryAndLabel = baseMapper.findCategoryAndLabel();
+        return Result.ok(categoryAndLabel);
+    }
+
+    @Override
     public boolean updateById(Category category) {
         //设置更新时间
         category.setUpdateDate(new Date());

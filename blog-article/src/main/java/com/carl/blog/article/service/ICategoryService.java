@@ -23,4 +23,9 @@ public interface ICategoryService extends IService<Category> {
      * 查询正常状态的分类
      */
     Result findAllNormal();
+
+    /**
+     * 查询正常状态的分类以及分类下的所有标签
+     */
+    Result findCategoryAndLabel();
 }
