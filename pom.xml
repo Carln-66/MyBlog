@@ -12,6 +12,7 @@
         <module>blog-util</module>
         <module>blog-api</module>
         <module>blog-article</module>
+        <module>blog-generator</module>
     </modules>
 
     <parent>
