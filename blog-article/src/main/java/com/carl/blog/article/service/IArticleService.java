@@ -1,5 +1,6 @@
 package com.carl.blog.article.service;
 
+import com.carl.blog.article.req.ArticleListREQ;
 import com.carl.blog.article.req.ArticleREQ;
 import com.carl.blog.article.req.ArticleUserREQ;
 import com.carl.blog.entities.Article;
@@ -57,4 +58,18 @@ public interface IArticleService extends IService<Article> {
      * @return
      */
     Result updateThumbUp(String id, int count);
+
+    /**
+     * 更新文章浏览次数
+     * @param id 文章id
+     * @return
+     */
+    Result updateViewCount(String id);
+
+    /**
+     * 通过分类Id或标签id查询公开且已审核通过的文章
+     * @Param req 分类id或标签id，分类对象
+     * @return
+     */
+    Result findListByLabelIdOrCategoryId(ArticleListREQ req);
 }

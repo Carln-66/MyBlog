@@ -1,6 +1,8 @@
 package com.carl.blog.article.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.carl.blog.article.req.ArticleListREQ;
 import com.carl.blog.entities.Article;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,4 +39,12 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     boolean saveArticleLabel(@Param("articleId") String articleId, @Param("labelIds") List<String> labelIds);
+
+    /**
+     * 通过分类Id或标签id查询公开且已审核通过的文章
+     * @param page 分页对象
+     * @param req 条件
+     * @return
+     */
+    IPage<Article> findListByLabelIdOrCategoryId(IPage<Article> page, @Param("req")ArticleListREQ req);
 }

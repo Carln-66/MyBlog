@@ -52,4 +52,23 @@
             ('${@com.baomidou.mybatisplus.core.toolkit.IdWorker@getId()}' ,#{articleId}, #{item})
         </foreach>
     </insert>
+
+    <!--通过分类Id或标签id查询公开且已审核通过的文章-->
+    <select id="findListByLabelIdOrCategoryId" resultType="Article">
+        SELECT DISTINCT a.*
+        FROM label l
+        JOIN article_label al
+        ON l.id = al.label_id
+        JOIN article a
+        ON al.article_id = a.id
+        WHERE a.is_public = 1
+        AND status = 2
+        <if test="req.labelId != null and req.labelId != ''">
+            AND l.id = #{req.labelId}
+        </if>
+        <if test="req.categoryId != null and req.categoryId != ''">
+            AND l.category_id = #{req.categoryId}
+        </if>
+        ORDER BY a.update_date DESC
+    </select>
 </mapper>

@@ -1,15 +1,13 @@
 package com.carl.blog.article.api;
 
+import com.carl.blog.article.req.ArticleListREQ;
 import com.carl.blog.article.service.IArticleService;
 import com.carl.blog.util.base.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Auther: Carl
@@ -29,5 +27,18 @@ public class ApiArticleController {
     @GetMapping("/{id}")
     public Result view(@PathVariable String id) {
         return articleService.findArticleAndLabelById(id);
+    }
+
+    @ApiImplicitParam(name = "id", value = "文章id", required = true)
+    @ApiOperation("更新文章浏览次数")
+    @PutMapping("/viewCount/{id}")
+    public Result updateViewCount(@PathVariable("id") String id) {
+        return articleService.updateViewCount(id);
+    }
+
+    @ApiOperation("公开且已审核的文章列表接口")
+    @PostMapping("/list")   //  /api/article/list
+    public Result list(@RequestBody ArticleListREQ req) {
+        return articleService.findListByLabelIdOrCategoryId(req);
     }
 }

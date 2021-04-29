@@ -1,6 +1,6 @@
 package com.carl.blog.article.req;
 
-import com.carl.blog.entities.Label;
+import com.carl.blog.entities.Article;
 import com.carl.blog.util.base.BaseRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,18 +9,17 @@ import lombok.experimental.Accessors;
 
 /**
  * @Auther: Carl
- * @Date: 2021/04/28/12:11
+ * @Date: 2021/04/29/16:15
  * @Description:
  */
-@ApiModel(value = "LabelREQ对象", description = "标签查询条件")
 @Data
 @Accessors(chain = true)
-public class LabelREQ extends BaseRequest<Label> {
+@ApiModel(value = "ArticleListREQ对象", description = "文章列表查询条件")
+public class ArticleListREQ extends BaseRequest<Article> {
 
-    @ApiModelProperty(value = "标签名称")
-    private String name;
-
-    @ApiModelProperty("分类id")
+    @ApiModelProperty(value = "分类ID")
     private String categoryId;
 
+    @ApiModelProperty(value = "标签ID")
+    private String labelId;
 }

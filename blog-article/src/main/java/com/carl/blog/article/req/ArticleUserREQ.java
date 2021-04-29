@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  * @Description:
  */
 @Data
-@Accessors
+@Accessors(chain = true)
 @ApiModel(value = "ArticleUserREQ对象", description = "获取指定用户文章的查询条件")
 public class ArticleUserREQ extends BaseRequest<Article> {
 

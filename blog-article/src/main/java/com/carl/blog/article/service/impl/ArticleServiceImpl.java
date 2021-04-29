@@ -2,6 +2,7 @@ package com.carl.blog.article.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.carl.blog.article.req.ArticleListREQ;
 import com.carl.blog.article.req.ArticleREQ;
 import com.carl.blog.article.req.ArticleUserREQ;
 import com.carl.blog.entities.Article;
@@ -125,5 +126,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         article.setThumbUp(article.getThumbUp() + count);
         baseMapper.updateById(article);
         return Result.ok();
+    }
+
+    @Override
+    public Result updateViewCount(String id) {
+        if (StringUtils.isEmpty(id)) {
+            return Result.error("id为空，操作无效");
+        }
+        Article article = baseMapper.selectById(id);
+        if (article == null) {
+            return Result.error("文章不存在");
+        }
+        article.setViewCount(article.getViewCount() + 1);
+        baseMapper.updateById(article);
+        return Result.ok();
+    }
+
+    @Override
+    public Result findListByLabelIdOrCategoryId(ArticleListREQ req) {
+        IPage<Article> page = baseMapper.findListByLabelIdOrCategoryId(req.getPage(), req);
+        return Result.ok(page);
     }
 }
