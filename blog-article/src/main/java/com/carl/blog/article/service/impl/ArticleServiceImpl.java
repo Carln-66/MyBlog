@@ -3,6 +3,7 @@ package com.carl.blog.article.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.carl.blog.article.req.ArticleREQ;
+import com.carl.blog.article.req.ArticleUserREQ;
 import com.carl.blog.entities.Article;
 import com.carl.blog.article.mapper.ArticleMapper;
 import com.carl.blog.article.service.IArticleService;
@@ -85,5 +86,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         article.setUpdateDate(new Date());
         baseMapper.updateById(article);
         return Result.ok();
+    }
+
+    @Override
+    public Result findListByUserId(ArticleUserREQ req) {
+        if (StringUtils.isEmpty(req.getUserId())) {
+            return Result.error("无效用户信息");
+        }
+        QueryWrapper<Article> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", req.getUserId());
+        if (req.getIsPublic() != null) {
+            wrapper.eq("is_public", req.getIsPublic());
+        } else {
+            return Result.error("非法请求");
+        }
+        //排序
+        wrapper.orderByDesc("update_date");
+        IPage<Article> page = baseMapper.selectPage(req.getPage(), wrapper);
+        return Result.ok(page);
     }
 }

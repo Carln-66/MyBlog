@@ -1,6 +1,7 @@
 package com.carl.blog.article.service;
 
 import com.carl.blog.article.req.ArticleREQ;
+import com.carl.blog.article.req.ArticleUserREQ;
 import com.carl.blog.entities.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.carl.blog.util.base.Result;
@@ -42,4 +43,10 @@ public interface IArticleService extends IService<Article> {
      * @return
      */
     Result updateStatus(String id, ArticleStatusEnum articleStatusEnum);
+
+    /**
+     * 根据用户ID查询公开或未公开的文章列表
+     * @return
+     */
+    Result findListByUserId(ArticleUserREQ req);
 }

@@ -2,6 +2,7 @@ package com.carl.blog.article.controller;
 
 
 import com.carl.blog.article.req.ArticleREQ;
+import com.carl.blog.article.req.ArticleUserREQ;
 import com.carl.blog.article.service.IArticleService;
 import com.carl.blog.entities.Article;
 import com.carl.blog.util.base.Result;
@@ -75,5 +76,11 @@ public class ArticleController {
     public Result fail(@PathVariable("id") String id) {
         //审核通过
         return articleService.updateStatus(id, ArticleStatusEnum.FAIL);
+    }
+
+    @ApiOperation("根据用户ID查询公开或未公开的文章列表接口")
+    @PostMapping("/user")   //article/user
+    public Result findListByUserId(@RequestBody ArticleUserREQ req) {
+        return articleService.findListByUserId(req);
     }
 }
