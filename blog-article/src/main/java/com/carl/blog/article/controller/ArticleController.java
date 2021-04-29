@@ -5,6 +5,7 @@ import com.carl.blog.article.req.ArticleREQ;
 import com.carl.blog.article.service.IArticleService;
 import com.carl.blog.entities.Article;
 import com.carl.blog.util.base.Result;
+import com.carl.blog.util.enums.ArticleStatusEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -50,5 +51,29 @@ public class ArticleController {
     @PostMapping
     public Result save(@RequestBody Article article) {
         return articleService.updateOrSave(article);
+    }
+
+    @ApiImplicitParam(name = "id", value = "文章id", required = true)
+    @ApiOperation("删除文章接口")
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable("id") String id) {
+        //伪删除，只是更改状态
+        return articleService.updateStatus(id, ArticleStatusEnum.DELETE);
+    }
+
+    @ApiImplicitParam(name = "id", value = "文章id", required = true)
+    @ApiOperation("审核文章通过接口")
+    @GetMapping("/audit/success/{id}")
+    public Result success(@PathVariable("id") String id) {
+        //审核通过
+        return articleService.updateStatus(id, ArticleStatusEnum.SUCCESS);
+    }
+
+    @ApiImplicitParam(name = "id", value = "文章id", required = true)
+    @ApiOperation("审核文章不通过接口")
+    @GetMapping("/audit/fail/{id}")
+    public Result fail(@PathVariable("id") String id) {
+        //审核通过
+        return articleService.updateStatus(id, ArticleStatusEnum.FAIL);
     }
 }

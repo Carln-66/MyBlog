@@ -4,6 +4,7 @@ import com.carl.blog.article.req.ArticleREQ;
 import com.carl.blog.entities.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.carl.blog.util.base.Result;
+import com.carl.blog.util.enums.ArticleStatusEnum;
 
 /**
  * <p>
@@ -33,4 +34,12 @@ public interface IArticleService extends IService<Article> {
      * @return
      */
     Result updateOrSave(Article article);
+
+    /**
+     * 修改状态
+     * @param id 文章id
+     * @param articleStatusEnum 状态枚举类
+     * @return
+     */
+    Result updateStatus(String id, ArticleStatusEnum articleStatusEnum);
 }

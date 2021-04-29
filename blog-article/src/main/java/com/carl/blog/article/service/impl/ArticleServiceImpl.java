@@ -75,4 +75,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         //返回文章标签
         return Result.ok(article.getId());
     }
+
+    @Override
+    public Result updateStatus(String id, ArticleStatusEnum articleStatusEnum) {
+        //查询当前数据库中的数据状态
+        Article article = baseMapper.selectById(id);
+        //将状态更新
+        article.setStatus(articleStatusEnum.getCode());
+        article.setUpdateDate(new Date());
+        baseMapper.updateById(article);
+        return Result.ok();
+    }
 }
