@@ -26,4 +26,11 @@ public interface IArticleService extends IService<Article> {
      * @return
      */
     Result findArticleAndLabelById(String id);
+
+    /**
+     * 修改或新增文章
+     * @param article
+     * @return
+     */
+    Result updateOrSave(Article article);
 }

@@ -8,8 +8,13 @@ import com.carl.blog.article.mapper.ArticleMapper;
 import com.carl.blog.article.service.IArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.carl.blog.util.base.Result;
+import com.carl.blog.util.enums.ArticleStatusEnum;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -43,5 +48,31 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public Result findArticleAndLabelById(String id) {
         return Result.ok(baseMapper.findArticleAndLabelById(id));
+    }
+
+    @Override
+    @Transactional
+    public Result updateOrSave(Article article) {
+        //1. 如果id不为空，则是更新操作
+        if (StringUtils.isNotEmpty(article.getId())) {
+            // 更新：先删除文章中间表数据，再新增到中间表
+            baseMapper.deleteArticleLabel(article.getId());
+            // 更新：将更新时间设置为当前时间
+            article.setUpdateDate(new Date());
+        }
+        // 如果文章不是公开的，直接审核通过，否则待审核
+        if (article.getIsPublic() == 0) {   //不公开
+            article.setStatus(ArticleStatusEnum.SUCCESS.getCode());
+        } else {
+            article.setStatus(ArticleStatusEnum.WAIT.getCode());
+        }
+        //更新或保存文章信息
+        super.saveOrUpdate(article);
+        //新增标签数据到文章标签中间表中
+        if (CollectionUtils.isNotEmpty(article.getLabelIds())) {
+            baseMapper.saveArticleLabel(article.getId(), article.getLabelIds());
+        }
+        //返回文章标签
+        return Result.ok(article.getId());
     }
 }

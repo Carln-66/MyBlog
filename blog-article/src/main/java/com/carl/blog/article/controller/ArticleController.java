@@ -3,6 +3,7 @@ package com.carl.blog.article.controller;
 
 import com.carl.blog.article.req.ArticleREQ;
 import com.carl.blog.article.service.IArticleService;
+import com.carl.blog.entities.Article;
 import com.carl.blog.util.base.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -37,5 +38,11 @@ public class ArticleController {
     @GetMapping("/{id}")
     public Result view(@PathVariable String id) {
         return articleService.findArticleAndLabelById(id);
+    }
+
+    @ApiOperation("修改文章信息接口")
+    @PutMapping //put请求 localhost:8001/article/article
+    public Result update(@RequestBody Article article) {
+        return articleService.updateOrSave(article);
     }
 }

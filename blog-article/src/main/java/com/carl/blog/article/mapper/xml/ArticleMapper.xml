@@ -36,4 +36,20 @@
             <result column="label_name" property="name"/>
         </collection>
     </resultMap>
+
+    <!--通过文章id删除文章标签-->
+    <delete id="deleteArticleLabel">
+        DELETE
+        FROM article_label
+        WHERE article_id = #{articleId}
+    </delete>
+
+    <!--新增文章标签中间表数据-->
+    <insert id="saveArticleLabel">
+        INSERT INTO article_label(id, article_id, label_id)
+        VALUES
+        <foreach collection="labelIds" item="item" separator=",">
+            ('${@com.baomidou.mybatisplus.core.toolkit.IdWorker@getId()}' ,#{articleId}, #{item})
+        </foreach>
+    </insert>
 </mapper>
