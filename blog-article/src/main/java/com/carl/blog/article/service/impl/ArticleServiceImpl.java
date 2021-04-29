@@ -105,4 +105,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         IPage<Article> page = baseMapper.selectPage(req.getPage(), wrapper);
         return Result.ok(page);
     }
+
+    @Override
+    public Result updateThumbUp(String id, int count) {
+        if (count != -1 && count != 1) {
+            return Result.error("无效操作");
+        }
+        if (StringUtils.isEmpty(id)) {
+            return Result.error("无效操作");
+        }
+        //查询这篇文章现有数据，查询到之后将点赞数进行更新
+        Article article = baseMapper.selectById(id);
+        if (article == null) {
+            return Result.error("文章不存在");
+        }
+        if (article.getThumbUp() <= 0 && count == -1) {
+            return Result.error("无效操作");
+        }
+        article.setThumbUp(article.getThumbUp() + count);
+        baseMapper.updateById(article);
+        return Result.ok();
+    }
 }

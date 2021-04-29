@@ -49,4 +49,12 @@ public interface IArticleService extends IService<Article> {
      * @return
      */
     Result findListByUserId(ArticleUserREQ req);
+
+    /**
+     * 根据文章id更新点赞数
+     * @param id 文章id
+     * @param count 点赞+1，取消点赞-1
+     * @return
+     */
+    Result updateThumbUp(String id, int count);
 }
