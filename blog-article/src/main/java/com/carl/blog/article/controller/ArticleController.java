@@ -45,4 +45,10 @@ public class ArticleController {
     public Result update(@RequestBody Article article) {
         return articleService.updateOrSave(article);
     }
+
+    @ApiOperation("新增文章信息接口")
+    @PutMapping
+    public Result save(@RequestBody Article article) {
+        return articleService.updateOrSave(article);
+    }
 }
