@@ -7,6 +7,7 @@ import com.carl.blog.entities.Article;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -47,4 +48,10 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     IPage<Article> findListByLabelIdOrCategoryId(IPage<Article> page, @Param("req")ArticleListREQ req);
+
+    /**
+     * 统计每个分类下的文章数（使用视图）
+     * @return
+     */
+    List<Map<String, Object>> selectCategoryTotal();
 }

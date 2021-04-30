@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.util.*;
 
 /**
  * <p>
@@ -146,5 +146,31 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public Result findListByLabelIdOrCategoryId(ArticleListREQ req) {
         IPage<Article> page = baseMapper.findListByLabelIdOrCategoryId(req.getPage(), req);
         return Result.ok(page);
+    }
+
+    @Override
+    public Result getArticleTotal() {
+        QueryWrapper<Article> wrapper = new QueryWrapper<>();
+        //状态是审核通过
+        wrapper.eq("status", ArticleStatusEnum.SUCCESS.getCode());
+        //状态是公开
+        wrapper.eq("is_public", 1);
+        Integer total = baseMapper.selectCount(wrapper);
+        return Result.ok(total);
+    }
+
+    @Override
+    public Result selectCategoryTotal() {
+        List<Map<String , Object>> maps = baseMapper.selectCategoryTotal();
+        //将分类名称单独提取到集合中
+        List<Object> nameList = new ArrayList<>();
+        for (Map<String, Object> map : maps) {
+            nameList.add(map.get("name"));
+        }
+        //封装响应数据
+        Map<String, Object> data = new HashMap<>();
+        data.put("nameAndValueList", maps);
+        data.put("nameList", nameList);
+        return Result.ok(data);
     }
 }

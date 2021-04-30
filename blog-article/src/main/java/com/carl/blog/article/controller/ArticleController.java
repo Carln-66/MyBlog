@@ -89,9 +89,22 @@ public class ArticleController {
             @ApiImplicitParam(name = "id", value = "文章ID", required = true),
             @ApiImplicitParam(name = "count", value = "文章点赞操作数", required = true)
     })
+
     @ApiOperation("更新点赞数")
     @PutMapping("/thumb/{id}/{count}")
     public Result updateThumbUp(@PathVariable("id") String id, @PathVariable("count") int count) {
         return articleService.updateThumbUp(id, count);
+    }
+
+    @ApiOperation("统计审核通过并公开的文章总记录数")
+    @GetMapping("/total")
+    public Result getArticleTotal() {
+        return articleService.getArticleTotal();
+    }
+
+    @ApiOperation("统计各个分类下的文章数")
+    @GetMapping("/category/total")
+    public Result categoryTotal() {
+        return articleService.selectCategoryTotal();
     }
 }

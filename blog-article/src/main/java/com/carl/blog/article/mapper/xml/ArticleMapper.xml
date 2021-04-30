@@ -71,4 +71,10 @@
         </if>
         ORDER BY a.update_date DESC
     </select>
+
+    <!--通过视图统计各分类下的文章数-->
+    <select id="selectCategoryTotal" resultType="map">
+        SELECT `name`, `value`
+        FROM v_category_total
+    </select>
 </mapper>
