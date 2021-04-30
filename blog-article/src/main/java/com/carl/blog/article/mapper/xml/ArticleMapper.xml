@@ -77,4 +77,10 @@
         SELECT `name`, `value`
         FROM v_category_total
     </select>
+
+    <!--统计近六个月发布的文章数（调用视图）-->
+    <select id="selectMonthArticleTotal" resultType="map">
+        SELECT `year_month`, total
+        FROM v_month_article_total
+    </select>
 </mapper>

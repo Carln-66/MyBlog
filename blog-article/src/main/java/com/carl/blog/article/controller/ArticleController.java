@@ -107,4 +107,10 @@ public class ArticleController {
     public Result categoryTotal() {
         return articleService.selectCategoryTotal();
     }
+
+    @ApiOperation("统计半年来的文章发布数量")
+    @GetMapping("/month/total")
+    public Result selectMonthArticleTotal() {
+        return articleService.selectMonthArticleTotal();
+    }
 }

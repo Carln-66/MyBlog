@@ -54,4 +54,10 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     List<Map<String, Object>> selectCategoryTotal();
+
+    /**
+     * 统计近六个月发布的文章数
+     * @return
+     */
+    List<Map<String, Object>> selectMonthArticleTotal();
 }
