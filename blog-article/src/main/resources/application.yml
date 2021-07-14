@@ -1,37 +1,58 @@
-swagger:
-  title: MyBlog博客系统接口文档
-  description: Carl的Blog
-  exclude-path: /error    # 忽略文档界面中的error选项卡
-
-server:
-  port: 8001
-  servlet:
-    context-path: /article  #上下文件路径，请求前缀：ip：port/article
-
-spring:
-  application:
-    name: article-server
-  datasource:
-    username: root
-    password: hl828914
-    url: jdbc:mysql://127.0.0.1:3306/blog_article?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
-      #mysql8版本以上驱动包指定新的驱动类
-    driver-class-name: com.mysql.cj.jdbc.Driver
-      #数据源其他配置, 在 DruidConfig配置类中手动绑定
-    initialSize: 8
-    minIdle: 5
-    maxActive: 20
-    maxWait: 60000
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1 FROM DUAL
-
-mybatis-plus:
-  type-aliases-package: com.carl.blog.entities
-  # xxxMapper.xml 路径
-  mapper-locations: classpath*:com/carl/blog/article/mapper/**/*.xml
-
-# 日志级别，会打印sql语句
-logging:
-  level:
-    com.carl.blog.article.mapper: debug
+#swagger:
+#  title: MyBlog博客系统接口文档
+#  description: 文章管理接口
+#  exclude-path: /error    # 忽略文档界面中的error选项卡
+#
+#server:
+#  port: 8001
+#  servlet:
+#    context-path: /article  #上下文件路径，请求前缀：ip：port/article
+#
+#spring:
+#  application:
+#    name: article-server
+#  datasource:
+#    username: root
+#    password: hl828914
+#    url: jdbc:mysql://127.0.0.1:3306/blog_article?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+#      #mysql8版本以上驱动包指定新的驱动类
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#      #数据源其他配置, 在 DruidConfig配置类中手动绑定
+#    initialSize: 8
+#    minIdle: 5
+#    maxActive: 20
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 1 FROM DUAL
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848 # Nacos注册与发现配置，配置 nacos服务器的ip与端口号
+##      config:
+##        prefix: article-server
+#
+#
+#mybatis-plus:
+#  type-aliases-package: com.carl.blog.entities
+#  # xxxMapper.xml 路径
+#  mapper-locations: classpath*:com/carl/blog/article/mapper/**/*.xml
+#
+## 日志级别，会打印sql语句
+#logging:
+#  level:
+#    com.carl.blog.article.mapper: debug
+#
+## 阿里云oss配置
+#carl:
+#  blog:
+#    # 阿里云配置
+#    aliyun:
+#      # 注意加https://
+#      endpoint: https://oss-eu-central-1.aliyuncs.com
+#      accessKeyId: xxxxx
+#      AccessKeySecret: xxxxx
+#      bucketName: carl-myblog #存储空间名
+#      # Bucket域名，访问文件时作为URL前缀，注意要加https:// 和 结尾带 /
+#      bucketDomain: https://carl-myblog.oss-eu-central-1.aliyuncs.com/
+#

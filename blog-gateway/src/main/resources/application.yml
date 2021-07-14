@@ -1,0 +1,62 @@
+#server:
+#  port: 6001
+#
+#spring:
+#  application:
+#    name: gateway-server # 应用名
+#    redis:
+#      host: localhost # Redis服务器地址
+#      port: 6379 # Redis服务器连接端口
+#      # Redis服务器连接密码（默认为空），注释放到上面来，不然控制台可能会一直打印日志
+#      password:
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848 # 注册中心地址
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true # true：开启以服务名称调用目标服务
+#      routes:
+#        - id: blog-article  # 路由唯一标识
+#          # uri: http://localhost:8001  # 目标服务地址
+#          uri: lb://article-server  # 目标微服务名称 lb:// 目标服务名
+#          predicates:   # 路由条件
+#            - Path=/article/**  # 匹配访问路径，以/article开头的请求代理到http://localhost:8001
+#          filters:
+#            # - StripPrefix=1   # 代理转发去掉路径，/article/**，会将每个article在过滤器中截取掉
+#            - name: RequestRateLimiter  # 开启限流
+#              args:
+#                key-resolver: '#{@uriKeyResolver}' # 限制过滤器bean名称
+#                redis-rate-limiter.replenishRate: 2 # 希望每个用户每秒执行多少个请求：令牌桶填充的速率
+#                redis-rate-limiter.burstCapacity: 4 # 允许用户在一秒钟内完成的最大请求数：令牌桶最多可以容纳的令牌数量。如果设置为0将组织所有请求
+#        - id: blog-question
+#          uri: lb://question-server
+#          predicates:
+#            - Path=/question/**
+#          filters:
+#            - name: RequestRateLimiter  # 开启限流
+#              args:
+#                key-resolver: '#{@uriKeyResolver}'
+#                redis-rate-limiter.replenishRate: 2
+#                redis-rate-limiter.burstCapacity: 4
+#        - id: blog-system
+#          uri: lb://system-server
+#          predicates:
+#            - Path=/system/**
+#          filters:
+#            - name: RequestRateLimiter  # 开启限流
+#              args:
+#                key-resolver: '#{@uriKeyResolver}'
+#                redis-rate-limiter.replenishRate: 2
+#                redis-rate-limiter.burstCapacity: 4
+#        - id: blog-auth
+#          uri: lb://auth-server
+#          predicates:
+#            - Path=/auth/**
+#          filters:
+#            - name: RequestRateLimiter  # 开启限流
+#              args:
+#                key-resolver: '#{@uriKeyResolver}'
+#                redis-rate-limiter.replenishRate: 2
+#                redis-rate-limiter.burstCapacity: 4

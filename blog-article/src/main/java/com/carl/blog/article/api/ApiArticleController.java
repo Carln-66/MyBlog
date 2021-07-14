@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date: 2021/04/29/11:04
  * @Description:
  */
-@Api(value = "文章管理API接口", description = "文章管理API接口，不需要通过身份  认证即可访问")
+@Api(value = "文章管理API接口", description = "文章管理API接口，不需要通过身份认证即可访问")
 @RestController
 @RequestMapping("/api/article")
 public class ApiArticleController {

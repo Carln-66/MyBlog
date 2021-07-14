@@ -18,6 +18,7 @@
         <result column="nick_name" property="nickName"/>
         <result column="title" property="title"/>
         <result column="summary" property="summary"/>
+        <result column="article_url" property="articleUrl"/>
         <result column="md_content" property="mdContent"/>
         <result column="html_content" property="htmlContent"/>
         <result column="view_count" property="viewCount"/>
@@ -83,4 +84,16 @@
         SELECT `year_month`, total
         FROM v_month_article_total
     </select>
+
+    <!--更新文章和评论表中的用户信息-->
+    <update id="updateUserInfo">
+        UPDATE article
+        SET nick_name  = #{nickName},
+            user_image = #{userImage}
+        WHERE user_id = #{userId};
+        UPDATE comment
+        SET nick_name  = #{nickName},
+            user_image = #{userImage}
+        WHERE user_id = #{userId};
+    </update>
 </mapper>

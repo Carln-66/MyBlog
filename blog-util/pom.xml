@@ -21,6 +21,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--spring-boot 2.3.x 版本以上将validation单独抽取出来了，需要自己引入-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
         <!--mybatis-plus启动器-->
         <dependency>
             <groupId>com.baomidou</groupId>

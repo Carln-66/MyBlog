@@ -12,7 +12,6 @@ import java.util.Base64;
 public class RequestUtil {
     public static String[] extractAndDecodeHeader(String header) throws IOException {
         byte[] base64Token = header.trim().substring(6).getBytes(StandardCharsets.UTF_8);
-
         byte[] decoded;
         try {
             decoded = Base64.getDecoder().decode(base64Token);

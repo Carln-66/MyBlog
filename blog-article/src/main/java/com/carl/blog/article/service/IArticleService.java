@@ -5,6 +5,7 @@ import com.carl.blog.article.req.ArticleREQ;
 import com.carl.blog.article.req.ArticleUserREQ;
 import com.carl.blog.entities.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.carl.blog.feign.req.UserInfoREQ;
 import com.carl.blog.util.base.Result;
 import com.carl.blog.util.enums.ArticleStatusEnum;
 
@@ -90,4 +91,11 @@ public interface IArticleService extends IService<Article> {
      * @return
      */
     Result selectMonthArticleTotal();
+
+    /**
+     * 更新文章和评论表中的用户信息
+     * @param req
+     * @return
+     */
+    boolean updateUserInfo(UserInfoREQ req);
 }

@@ -22,13 +22,13 @@ import java.util.Scanner;
 public class CodeGenerator {
 
     // 生成的代码放到哪个工程中
-    private static String PROJECT_NAME = "blog-article";
+    private static String PROJECT_NAME = "blog-system";
 
     // 数据库名称
-    private static String DATABASE_NAME = "blog_article";
+    private static String DATABASE_NAME = "blog_system";
 
     // 子包名
-    private static String MODULE_NAME = "article";
+    private static String MODULE_NAME = "system";
 
     public static void main(String[] args) {
         // 代码生成器
@@ -81,7 +81,6 @@ public class CodeGenerator {
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
-
 
     /**
      * <p>

@@ -1,0 +1,53 @@
+#swagger:
+#  title: MyBlog博客系统接口文档
+#  description: 问答管理接口
+#  exclude-path: /error # 剔除请求
+#
+#server:
+#  port: 8002
+#  servlet:
+#    context-path: /question
+#
+#spring:
+#  application:
+#    name: question-server # 应用名
+#  # 数据源配置
+#  datasource:
+#    username: root
+#    password: hl828914
+#    url: jdbc:mysql://127.0.0.1:3306/blog_question?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+#    #mysql8版本以上驱动包指定新的驱动类
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    #   数据源其他配置, 在 DruidConfig配置类中手动绑定
+#    initialSize: 8
+#    minIdle: 5
+#    maxActive: 20
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 1 FROM DUAL
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848 # nacos服务器IP和端口号
+#
+#mybatis-plus:
+#  type-aliases-package: com.carl.blog.entities
+#  # xxxMapper.xml 路径
+#  mapper-locations: classpath*:com/carl/blog/question/mapper/**/*.xml
+#
+## 日志级别，会打印sql语句
+#logging:
+#  level:
+#    com.blog.question.mapper: debug
+#
+#carl:
+#  blog:
+#    #  阿里云配置
+#    aliyun:
+#      endpoint: http://oss-eu-central-1.aliyuncs.com # OSS 端点，根据自己地域替换
+#      accessKeyId: xxx # 根据自己的配置
+#      accessKeySecret: xxxxxxx # 根据自己的配置
+#      bucketName: xxxxxx # 存储空间名称
+#      # Bucket域名，访问文件时作为URL前缀，注意前面加上 https 和结尾加上 /
+#      bucketDomain: https://carl-myblog.oss-eu-central-1.aliyuncs.com/

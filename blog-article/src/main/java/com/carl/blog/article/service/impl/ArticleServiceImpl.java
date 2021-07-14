@@ -9,6 +9,7 @@ import com.carl.blog.entities.Article;
 import com.carl.blog.article.mapper.ArticleMapper;
 import com.carl.blog.article.service.IArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.carl.blog.feign.req.UserInfoREQ;
 import com.carl.blog.util.base.Result;
 import com.carl.blog.util.enums.ArticleStatusEnum;
 import org.apache.commons.collections.CollectionUtils;
@@ -191,5 +192,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         data.put("yearMonthList", yearMonthList);
         data.put("articleTotalList", articleTotalList);
         return Result.ok(data);
+    }
+
+    @Override
+    public boolean updateUserInfo(UserInfoREQ req) {
+        return baseMapper.updateUserInfo(req);
     }
 }

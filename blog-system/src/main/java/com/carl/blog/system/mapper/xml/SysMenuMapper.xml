@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.blog.system.mapper.SysMenuMapper">
+    <!--查询指定id用户所拥有的菜单权限（目录、菜单、按钮）-->
+    <select id="findByUserId" resultType="SysMenu">
+        SELECT DISTINCT sm.id,
+                        sm.parent_id,
+                        sm.name,
+                        sm.code,
+                        sm.url,
+                        sm.`type`,
+                        sm.icon,
+                        sm.remark,
+                        sm.sort,
+                        sm.create_date,
+                        sm.update_date
+        FROM sys_user su
+                 JOIN sys_user_role sur ON
+            su.id = sur.user_id
+                 JOIN sys_role sr ON
+            sur.role_id = sr.id
+                 JOIN sys_role_menu srm ON
+            sr.id = srm.role_id
+                 JOIN sys_menu sm ON
+            srm.menu_id = sm.id
+        WHERE su.id = #{userId}
+        ORDER BY sm.sort
+    </select>
+</mapper>
